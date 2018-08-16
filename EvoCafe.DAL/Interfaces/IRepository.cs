@@ -2,6 +2,7 @@
 using System;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace EvoCafe.DAL.Interfaces
 {
@@ -9,9 +10,9 @@ namespace EvoCafe.DAL.Interfaces
     {
         IQueryable<T> GetAll();
         IQueryable<T> Get(Expression<Func<T, bool>> predicate);
-        T GetSingle(int id);
+        Task<T> GetSingleAsync(int id);
         void Create(T item);
         void Update(T item);
-        void Delete(int id);
+        Task Delete(int id);
     }
 }

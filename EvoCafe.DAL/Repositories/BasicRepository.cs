@@ -4,6 +4,7 @@ using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace EvoCafe.DAL.Repositories
 {
@@ -23,22 +24,21 @@ namespace EvoCafe.DAL.Repositories
             _dbSet.Add(item);
         }
 
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
-            var entity = _dbSet.Find(id);
+            var entity = await GetSingleAsync(id);
             if (entity != null)
                 _dbSet.Remove(entity);
         }
 
-        public T GetSingle(int id) => _dbSet.Find(id);
+        public Task<T> GetSingleAsync(int id) => _dbSet.FindAsync(id);
 
-        public IQueryable<T> Get(Expression<Func<T, bool>> predicate) => _dbSet.Where(predicate);
+        public IQueryable<T> Get(Expression<Func<T, bool>> predicate) => _dbSet.Where(predicate).AsNoTracking();
 
-        public IQueryable<T> GetAll() => _dbSet;
+        public IQueryable<T> GetAll() => _dbSet.AsNoTracking();
 
         public void Update(T item)
         {
-            //_dbSet.Attach(item);
             _dbContext.Entry(item).State = EntityState.Modified;
         }
     }

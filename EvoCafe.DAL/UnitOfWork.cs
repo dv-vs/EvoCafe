@@ -1,6 +1,10 @@
 ﻿using EvoCafe.DAL.Interfaces;
+using EvoCafe.DAL.Models;
 using EvoCafe.DAL.Repositories;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace EvoCafe.DAL
 {
@@ -11,13 +15,16 @@ namespace EvoCafe.DAL
         private IDishes _dishes;
         private ICategories _categories;
         private IMenues _menues;
+        
+        public Dictionary<Type, object> repositories = new Dictionary<Type, object>();
+
 
         public UnitOfWork(CafeContext dbContext)
         {
             _dbContext = dbContext;
         }
 
-        public void SaveChanges()
+        public async Task SaveChangesAsync()
         {
             _dbContext.SaveChangesAsync();
         }
@@ -53,6 +60,17 @@ namespace EvoCafe.DAL
 
                 return _menues;
             }
+        }
+
+        public IRepository<T> Repository<T>() where T : EntityBase
+        {
+            if (repositories.Keys.Contains(typeof(T)) == true)
+            {
+                return repositories[typeof(T)] as IRepository<T>;
+            }
+            IRepository<T> repo = new BasicRepository<T>(_dbContext);
+            repositories.Add(typeof(T), repo);
+            return repo;
         }
         #region IDisposable Support
         private bool disposedValue = false; // Для определения избыточных вызовов
