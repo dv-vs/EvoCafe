@@ -1,7 +1,9 @@
 ﻿using EvoCafe.DAL.Interfaces;
 using EvoCafe.DAL.Models;
 using System;
+using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -31,6 +33,16 @@ namespace EvoCafe.DAL.Repositories
                 _dbSet.Remove(entity);
         }
 
+        public void Delete(T item)
+        {
+            _dbSet.Remove(item);
+        }
+
+        public void DeleteRange(IEnumerable<T> items)
+        {
+            _dbSet.RemoveRange(items);
+        }
+
         public Task<T> GetSingleAsync(int id) => _dbSet.FindAsync(id);
 
         public IQueryable<T> Get(Expression<Func<T, bool>> predicate) => _dbSet.Where(predicate).AsNoTracking();
@@ -39,7 +51,9 @@ namespace EvoCafe.DAL.Repositories
 
         public void Update(T item)
         {
-            _dbContext.Entry(item).State = EntityState.Modified;
+            //_dbContext.Entry(item).State = EntityState.Modified;
+            //_dbSet.Attach(item);
+            _dbSet.AddOrUpdate(item);
         }
     }
 }

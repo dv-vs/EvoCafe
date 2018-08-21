@@ -110,8 +110,12 @@ namespace EvoCafe.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            
-            await _categoryRepo.Delete(id);
+            Category category = await _categoryRepo.GetSingleAsync(id);
+            var dishRepo = _unitOfWork.Dishes;
+
+            dishRepo.DeleteRange(category.Dishes);
+            _categoryRepo.Delete(category);
+
             await _unitOfWork.SaveChangesAsync();
             return RedirectToAction("Index");
         }

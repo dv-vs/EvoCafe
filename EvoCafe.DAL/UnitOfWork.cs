@@ -26,7 +26,7 @@ namespace EvoCafe.DAL
 
         public async Task SaveChangesAsync()
         {
-            _dbContext.SaveChangesAsync();
+            await _dbContext.SaveChangesAsync();
         }
 
         public IDishes Dishes

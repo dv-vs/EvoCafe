@@ -63,7 +63,7 @@ namespace EvoCafe
         private static void RegisterServices(IKernel kernel)
         {
             //kernel.Bind<CafeContext>().ToSelf().InRequestScope();
-            kernel.Bind<IUnitOfWork>().To<UnitOfWork>().InRequestScope().WithConstructorArgument("dbContext", new CafeContext());
+            kernel.Bind<IUnitOfWork>().To<UnitOfWork>().WithConstructorArgument("dbContext", new CafeContext());
         }        
     }
 }

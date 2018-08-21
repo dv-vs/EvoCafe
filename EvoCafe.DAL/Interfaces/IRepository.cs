@@ -1,5 +1,6 @@
 ﻿using EvoCafe.DAL.Models;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -14,5 +15,8 @@ namespace EvoCafe.DAL.Interfaces
         void Create(T item);
         void Update(T item);
         Task Delete(int id);
+        void Delete(T item);
+        void DeleteRange(IEnumerable<T> items);
+        
     }
 }
