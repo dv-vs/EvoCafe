@@ -54,6 +54,15 @@
     <Compile Include="Interfaces\ICategories.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
+    <Compile Include="Migrations\201808161016561_InitialCreate.cs" />
+    <Compile Include="Migrations\201808161016561_InitialCreate.Designer.cs">
+      <DependentUpon>201808161016561_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808301406255_first.cs" />
+    <Compile Include="Migrations\201808301406255_first.Designer.cs">
+      <DependentUpon>201808301406255_first.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Dish.cs" />
     <Compile Include="Models\EntityBase.cs" />
@@ -74,6 +83,13 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201808161016561_InitialCreate.resx">
+      <DependentUpon>201808161016561_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808301406255_first.resx">
+      <DependentUpon>201808301406255_first.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -6,6 +6,12 @@ namespace EvoCafe.DAL
     public class CafeContext: DbContext
     {
         public CafeContext(): base("DBConnection") { }
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            // other code 
+            Database.SetInitializer<CafeContext>(null);
+            // more code
+        }
 
         public DbSet<Category> Categories { get; set; }
         public DbSet<Dish> Dishes { get; set; }

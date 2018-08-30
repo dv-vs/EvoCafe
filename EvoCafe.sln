@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvoCafe.Web", "EvoCafe.Web\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvoCafe.DAL", "EvoCafe.DAL\EvoCafe.DAL.csproj", "{FB648EB9-0454-4096-9876-54699D4A14A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dishes.BLL", "Dishes.BLL\Dishes.BLL.csproj", "{1D0530F8-4E5C-44A1-8186-4A28612639B0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Menue.BLL", "Dishes.BLL\Menue.BLL.csproj", "{1D0530F8-4E5C-44A1-8186-4A28612639B0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

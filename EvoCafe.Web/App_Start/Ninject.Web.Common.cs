@@ -7,6 +7,7 @@ namespace EvoCafe
     using System.Web;
     using EvoCafe.DAL;
     using EvoCafe.DAL.Interfaces;
+    using Menue.BLL;
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 
     using Ninject;
@@ -64,6 +65,7 @@ namespace EvoCafe
         {
             //kernel.Bind<CafeContext>().ToSelf().InRequestScope();
             kernel.Bind<IUnitOfWork>().To<UnitOfWork>().WithConstructorArgument("dbContext", new CafeContext());
+            kernel.Bind<MenuService>().ToSelf();
         }        
     }
 }

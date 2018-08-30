@@ -165,6 +165,7 @@
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\DishesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -261,6 +262,7 @@
     <Content Include="Views\Dishes\Details.cshtml" />
     <Content Include="Views\Dishes\Edit.cshtml" />
     <Content Include="Views\Dishes\Index.cshtml" />
+    <Content Include="Views\Menu\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -278,6 +280,10 @@
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Dishes.BLL\Menue.BLL.csproj">
+      <Project>{1D0530F8-4E5C-44A1-8186-4A28612639B0}</Project>
+      <Name>Menue.BLL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EvoCafe.DAL\EvoCafe.DAL.csproj">
       <Project>{FB648EB9-0454-4096-9876-54699D4A14A3}</Project>
       <Name>EvoCafe.DAL</Name>
