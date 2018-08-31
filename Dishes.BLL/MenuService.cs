@@ -1,10 +1,12 @@
 ﻿using EvoCafe.DAL.Interfaces;
-using Menue.BLL.Models;
+using EvoCafe.DAL.Models;
+using Menu.BLL.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
-namespace Menue.BLL
+namespace Menu.BLL
 {
     public class MenuService
     {
@@ -15,18 +17,35 @@ namespace Menue.BLL
             _unitOfWork = unitOfWork;
         }
 
-        public IEnumerable<MenuCreateModel> GetMenuTemplate()
+        private EvoCafe.DAL.Models.Menu GetCurrentMenu()
         {
             var currentDate = DateTime.Now.Date;
-            var currentMenu = _unitOfWork.Menues.Get(x => x.CreatedAt == currentDate).SingleOrDefault();
-            if (currentMenu == null)
-                return _unitOfWork.Dishes.GetAll().Select(x => new MenuCreateModel { IsChosen = false, Dish = x});
+            return _unitOfWork.Menues.Get(x => x.CreatedAt == currentDate).SingleOrDefault();
+        }
 
-            return from allDish in _unitOfWork.Dishes.GetAll().AsEnumerable()
+        public MenuCreateModel GetMenuTemplate()
+        {
+            var currentMenu = GetCurrentMenu();
+            if (currentMenu == null)
+                return new MenuCreateModel(_unitOfWork.Dishes.GetAll("Category").Select(x => new MenuDishes { IsChosen = false, Dish = x}).ToList());
+
+            return new MenuCreateModel((from allDish in _unitOfWork.Dishes.GetAll("Category")
                       join chosenDish in currentMenu.ActualDishes on allDish equals chosenDish into gj
                       from x in gj.DefaultIfEmpty()
-                      select new MenuCreateModel { IsChosen = x != null, Dish = allDish };
+                      select new MenuDishes { IsChosen = x != null, Dish = allDish }).ToList());
              
         }
+
+        public async Task SaveMenu(IEnumerable<Dish> dishes)
+        {
+            var currentMenu = GetCurrentMenu();
+            if (currentMenu == null)
+                currentMenu = new EvoCafe.DAL.Models.Menu();
+
+            currentMenu.ActualDishes = dishes.ToList();
+            _unitOfWork.Menues.Update(currentMenu);
+            await _unitOfWork.SaveChangesAsync();
+        }
+        
     }
 }

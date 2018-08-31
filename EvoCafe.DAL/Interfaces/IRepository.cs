@@ -9,9 +9,9 @@ namespace EvoCafe.DAL.Interfaces
 {
     public interface IRepository<T> where T: EntityBase
     {
-        IQueryable<T> GetAll();
-        IQueryable<T> Get(Expression<Func<T, bool>> predicate);
-        Task<T> GetSingleAsync(int id);
+        IQueryable<T> GetAll(params string[] includes);
+        IQueryable<T> Get(Expression<Func<T, bool>> predicate, params string[] includes);
+        Task<T> GetSingleAsync(int id, params string[] includes);
         void Create(T item);
         void Update(T item);
         Task Delete(int id);

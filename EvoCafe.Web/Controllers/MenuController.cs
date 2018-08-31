@@ -1,97 +1,62 @@
-﻿using Menue.BLL;
+﻿using EvoCafe.DAL.Interfaces;
+using Menu.BLL;
+using Menu.BLL.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace EvoCafe.Controllers
 {
     public class MenuController : Controller
     {
-        private MenuService _menuService;
+        readonly MenuService _menuService;
+        readonly IUnitOfWork _unitOfWork;
             
-        public MenuController(MenuService menuService)
+        public MenuController(MenuService menuService, IUnitOfWork unitOfWork)
         {
             _menuService = menuService;
+            _unitOfWork  = unitOfWork;
         }
         // GET: Menu
         public ActionResult Index()
         {
             var model = _menuService.GetMenuTemplate();
-            return View();
+            return View(model);
         }
 
-        // GET: Menu/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: Menu/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Menu/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Create(int[] IsChosen)
         {
-            try
+            var model = new MenuCreateModel();
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
+                try
+                {
+                    var chosenDishes = _unitOfWork.Dishes.Get(x => IsChosen.Contains(x.Id)).ToList();
+                    if (chosenDishes.Count == IsChosen.Length)
+                    {
+                        await _menuService.SaveMenu(chosenDishes);
+                        model = _menuService.GetMenuTemplate();
+                        model.Messages.Append("Все гуд, сохранено");
+                    }
+                    else
+                        model.Errors.Append("Какой-то кривой список блюд - не все нашлось(");
+                }
+                catch (Exception e)
+                {
+                    model.Errors.Append(e.ToString());
+                }
 
-                return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+            else
+                model.Errors.Append("шота невалидно с моделькой(");
+
+            return View("Index", model);
+            
         }
 
-        // GET: Menu/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Menu/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Menu/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Menu/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        
     }
 }

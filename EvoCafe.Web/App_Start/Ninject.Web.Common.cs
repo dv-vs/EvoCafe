@@ -7,7 +7,7 @@ namespace EvoCafe
     using System.Web;
     using EvoCafe.DAL;
     using EvoCafe.DAL.Interfaces;
-    using Menue.BLL;
+    using Menu.BLL;
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 
     using Ninject;

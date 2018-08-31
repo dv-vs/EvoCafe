@@ -21,6 +21,14 @@ namespace EvoCafe.DAL.Repositories
             _dbContext = cafeContext;
         }
 
+        private DbSet<T> JoinIncludes(DbSet<T> dbSet, params string[] includes)
+        {
+            foreach (var include in includes)
+                dbSet.Include(include);
+
+            return dbSet;
+        }
+
         public void Create(T item)
         {
             _dbSet.Add(item);
@@ -43,11 +51,11 @@ namespace EvoCafe.DAL.Repositories
             _dbSet.RemoveRange(items);
         }
 
-        public Task<T> GetSingleAsync(int id) => _dbSet.FindAsync(id);
+        public Task<T> GetSingleAsync(int id, params string[] includes) => JoinIncludes(_dbSet, includes).FindAsync(id);
 
-        public IQueryable<T> Get(Expression<Func<T, bool>> predicate) => _dbSet.Where(predicate).AsNoTracking();
+        public IQueryable<T> Get(Expression<Func<T, bool>> predicate, params string[] includes) => JoinIncludes(_dbSet, includes).Where(predicate).AsNoTracking();
 
-        public IQueryable<T> GetAll() => _dbSet.AsNoTracking();
+        public IQueryable<T> GetAll(params string[] includes) => JoinIncludes(_dbSet, includes).AsNoTracking();
 
         public void Update(T item)
         {

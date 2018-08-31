@@ -1,17 +1,52 @@
-﻿@{
-    Layout = null;
+﻿@model Menu.BLL.Models.MenuCreateModel
+
+@{
+    ViewBag.Title = "Новое меню";
 }
 
-<!DOCTYPE html>
+<h2>Создание меню</h2>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title></title>
-</head>
-<body>
-    <div>
-    
+
+@using (Html.BeginForm("Create", "Menu"))
+{
+    @Html.AntiForgeryToken()
+        var modelData = Model.MenuDishes;
+        foreach (var categoryGroup in modelData.GroupBy(x => x.Dish.Category.Name))
+        {
+        <h3>@categoryGroup.Key</h3>
+        <table class="table">
+            <tr>
+                <th>
+                    @*Html.DisplayNameFor(model => model.MenuDishes.IsChosen)*@
+                    ?
+                </th>
+
+                <th>
+                    @*@Html.DisplayNameFor(model => model.MenuDishes.Dish)*@
+                    Блюдо
+                </th>
+                
+            </tr>
+            @foreach (var dishItem in categoryGroup)
+            {
+                <tr>
+                    <td>
+                        <input id="IsChosen" name="IsChosen" type="checkbox" value=@dishItem.Dish.Id />
+                    </td>
+
+                    <td>
+                        @Html.ActionLink(dishItem.Dish.Name, "Details", "Dishes", new { id = dishItem.Dish.Id }, null)
+                    </td>
+                </tr>
+            }
+
+        </table>
+    }
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Сохранить" class="btn btn-default" />
+        </div>
     </div>
-</body>
-</html>
+
+ }
