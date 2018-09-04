@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace EvoCafe.DAL.Models
 {
@@ -13,7 +14,9 @@ namespace EvoCafe.DAL.Models
         [Range(1, 500, ErrorMessage = "Недопустимая цена")]
         [Display(Name = "Цена")]
         public decimal Price { get; set; }
-        public int? CategoryId { get; set; } 
+        [Required(ErrorMessage = "Категория обязательна")]
+        public int CategoryId { get; set; }
         public virtual Category Category { get; set; }
+        public virtual ICollection<Menu> Menues { get; set; }
     }
 }

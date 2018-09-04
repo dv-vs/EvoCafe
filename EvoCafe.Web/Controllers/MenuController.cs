@@ -2,6 +2,7 @@
 using Menu.BLL;
 using Menu.BLL.Models;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -39,7 +40,7 @@ namespace EvoCafe.Controllers
                     {
                         await _menuService.SaveMenu(chosenDishes);
                         model = _menuService.GetMenuTemplate();
-                        model.Messages.Append("Все гуд, сохранено");
+                        (model.Messages as List<string>).Add("Все гуд, сохранено");
                     }
                     else
                         model.Errors.Append("Какой-то кривой список блюд - не все нашлось(");

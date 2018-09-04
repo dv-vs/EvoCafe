@@ -7,5 +7,9 @@ namespace EvoCafe.DAL.Models
     {
         public DateTime CreatedAt { get; set; }
         public virtual ICollection<Dish> ActualDishes { get; set; }
+        public Menu()
+        {
+            ActualDishes = new List<Dish>();
+        }
     }
 }

@@ -6,47 +6,66 @@
 
 <h2>Создание меню</h2>
 
-
-@using (Html.BeginForm("Create", "Menu"))
+@if (Model.Errors.Count() != 0)
 {
-    @Html.AntiForgeryToken()
+    foreach (var error in Model.Errors)
+    {
+        @Html.Label(error, new { @class = "text-danger" });
+        <br />
+    }
+
+}
+else
+{
+    foreach (var info in Model.Messages)
+    {
+        @Html.Label(info, new { @class = "alert alert-success" });
+        <br />
+    }
+
+    using (Html.BeginForm("Create", "Menu"))
+    {
+        @Html.AntiForgeryToken()
         var modelData = Model.MenuDishes;
         foreach (var categoryGroup in modelData.GroupBy(x => x.Dish.Category.Name))
         {
-        <h3>@categoryGroup.Key</h3>
-        <table class="table">
-            <tr>
-                <th>
-                    @*Html.DisplayNameFor(model => model.MenuDishes.IsChosen)*@
-                    ?
-                </th>
-
-                <th>
-                    @*@Html.DisplayNameFor(model => model.MenuDishes.Dish)*@
-                    Блюдо
-                </th>
-                
-            </tr>
-            @foreach (var dishItem in categoryGroup)
-            {
+            <h3> @categoryGroup.Key </h3>
+            <table class="table">
                 <tr>
-                    <td>
-                        <input id="IsChosen" name="IsChosen" type="checkbox" value=@dishItem.Dish.Id />
-                    </td>
+                    <th>
+                        @*Html.DisplayNameFor(model => model.MenuDishes.IsChosen)*@
+                        ?
+                    </th>
 
-                    <td>
-                        @Html.ActionLink(dishItem.Dish.Name, "Details", "Dishes", new { id = dishItem.Dish.Id }, null)
-                    </td>
+                    <th>
+                        @*@Html.DisplayNameFor(model => model.MenuDishes.Dish)*@
+                        Блюдо
+                    </th>
+
                 </tr>
-            }
+                @foreach (var dishItem in categoryGroup)
+                {
+                    <tr>
+                        <td>
+                            <input id="IsChosen" name="IsChosen" type="checkbox" value=@dishItem.Dish.Id @(dishItem.IsChosen ? "checked" : "") />
 
-        </table>
+                        </td>
+
+                        <td>
+                            @Html.ActionLink(dishItem.Dish.Name, "Details", "Dishes", new { id = dishItem.Dish.Id }, null)
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        }
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Сохранить" class="btn btn-default" />
+            </div>
+        </div>
+
     }
 
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Сохранить" class="btn btn-default" />
-        </div>
-    </div>
-
- }
+}

@@ -29,21 +29,35 @@ namespace Menu.BLL
             if (currentMenu == null)
                 return new MenuCreateModel(_unitOfWork.Dishes.GetAll("Category").Select(x => new MenuDishes { IsChosen = false, Dish = x}).ToList());
 
-            return new MenuCreateModel((from allDish in _unitOfWork.Dishes.GetAll("Category")
-                      join chosenDish in currentMenu.ActualDishes on allDish equals chosenDish into gj
-                      from x in gj.DefaultIfEmpty()
-                      select new MenuDishes { IsChosen = x != null, Dish = allDish }).ToList());
+            var chosenDishes = currentMenu.ActualDishes.ToList();
+
+            var allAndSelectedDishes = (from allDish in _unitOfWork.Dishes.GetAll("Category").ToList()
+                                        join chosenDish in chosenDishes on allDish.Id equals chosenDish.Id into gj
+                                        from x in gj.DefaultIfEmpty()
+                                        select new MenuDishes { IsChosen = x != null, Dish = allDish }).ToList();
+
+            return new MenuCreateModel(allAndSelectedDishes);
              
         }
 
         public async Task SaveMenu(IEnumerable<Dish> dishes)
         {
             var currentMenu = GetCurrentMenu();
-            if (currentMenu == null)
-                currentMenu = new EvoCafe.DAL.Models.Menu();
+            if (currentMenu != null)
+            {
+                currentMenu.ActualDishes.Clear();
+                _unitOfWork.Menues.Delete(currentMenu);
 
-            currentMenu.ActualDishes = dishes.ToList();
-            _unitOfWork.Menues.Update(currentMenu);
+                await _unitOfWork.SaveChangesAsync();
+            }
+
+            currentMenu = new EvoCafe.DAL.Models.Menu();
+            currentMenu.CreatedAt = DateTime.Now.Date;
+            foreach (var dish in dishes)
+                currentMenu.ActualDishes.Add(dish);
+            //currentMenu.ActualDishes.ToList().AddRange(dishes);
+            _unitOfWork.Menues.Create(currentMenu);
+
             await _unitOfWork.SaveChangesAsync();
         }
         

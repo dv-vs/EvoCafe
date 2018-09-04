@@ -53,7 +53,7 @@ namespace EvoCafe.DAL.Repositories
 
         public Task<T> GetSingleAsync(int id, params string[] includes) => JoinIncludes(_dbSet, includes).FindAsync(id);
 
-        public IQueryable<T> Get(Expression<Func<T, bool>> predicate, params string[] includes) => JoinIncludes(_dbSet, includes).Where(predicate).AsNoTracking();
+        public IQueryable<T> Get(Expression<Func<T, bool>> predicate, params string[] includes) => JoinIncludes(_dbSet, includes).Where(predicate);
 
         public IQueryable<T> GetAll(params string[] includes) => JoinIncludes(_dbSet, includes).AsNoTracking();
 

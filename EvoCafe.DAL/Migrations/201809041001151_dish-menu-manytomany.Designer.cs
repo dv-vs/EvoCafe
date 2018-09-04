@@ -7,13 +7,13 @@ namespace EvoCafe.DAL.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class first : IMigrationMetadata
+    public sealed partial class dishmenumanytomany : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(first));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(dishmenumanytomany));
         
         string IMigrationMetadata.Id
         {
-            get { return "201808301406255_first"; }
+            get { return "201809041001151_dish-menu-manytomany"; }
         }
         
         string IMigrationMetadata.Source

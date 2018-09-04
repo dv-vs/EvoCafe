@@ -58,9 +58,9 @@
     <Compile Include="Migrations\201808161016561_InitialCreate.Designer.cs">
       <DependentUpon>201808161016561_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201808301406255_first.cs" />
-    <Compile Include="Migrations\201808301406255_first.Designer.cs">
-      <DependentUpon>201808301406255_first.cs</DependentUpon>
+    <Compile Include="Migrations\201809041001151_dish-menu-manytomany.cs" />
+    <Compile Include="Migrations\201809041001151_dish-menu-manytomany.Designer.cs">
+      <DependentUpon>201809041001151_dish-menu-manytomany.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Category.cs" />
@@ -87,8 +87,8 @@
     <EmbeddedResource Include="Migrations\201808161016561_InitialCreate.resx">
       <DependentUpon>201808161016561_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808301406255_first.resx">
-      <DependentUpon>201808301406255_first.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201809041001151_dish-menu-manytomany.resx">
+      <DependentUpon>201809041001151_dish-menu-manytomany.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
