@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvoCafe.DAL", "EvoCafe.DAL\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Menu.BLL", "Dishes.BLL\Menu.BLL.csproj", "{1D0530F8-4E5C-44A1-8186-4A28612639B0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserStore.DAL", "UserStore.DAL\UserStore.DAL.csproj", "{E34D0612-8629-46ED-B330-F1F431F7EA29}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserStore.BLL", "UserStore.BLL\UserStore.BLL.csproj", "{C4456A22-870D-4891-874E-13DC79ADCC5D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{1D0530F8-4E5C-44A1-8186-4A28612639B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D0530F8-4E5C-44A1-8186-4A28612639B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1D0530F8-4E5C-44A1-8186-4A28612639B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E34D0612-8629-46ED-B330-F1F431F7EA29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E34D0612-8629-46ED-B330-F1F431F7EA29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E34D0612-8629-46ED-B330-F1F431F7EA29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E34D0612-8629-46ED-B330-F1F431F7EA29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4456A22-870D-4891-874E-13DC79ADCC5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4456A22-870D-4891-874E-13DC79ADCC5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4456A22-870D-4891-874E-13DC79ADCC5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4456A22-870D-4891-874E-13DC79ADCC5D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
