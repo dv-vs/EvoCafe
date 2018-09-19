@@ -11,5 +11,9 @@ namespace EvoCafe.DAL.Models
         public string Id { get; set; }
         public decimal Balance { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
+        public Profile()
+        {
+            Orders = new List<Order>();
+        }
     }
 }

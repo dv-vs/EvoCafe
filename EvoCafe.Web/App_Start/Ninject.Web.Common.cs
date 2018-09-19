@@ -13,6 +13,10 @@ namespace EvoCafe
     using Ninject;
     using Ninject.Web.Common;
     using Ninject.Web.Common.WebHost;
+    using UserStore.BLL.Interfaces;
+    using UserStore.BLL.Services;
+    using UserStore.DAL;
+    using UserStore.DAL.Interfaces;
 
     public static class NinjectWebCommon 
     {
@@ -66,6 +70,11 @@ namespace EvoCafe
             //kernel.Bind<CafeContext>().ToSelf().InRequestScope();
             kernel.Bind<IUnitOfWork>().To<UnitOfWork>().WithConstructorArgument("dbContext", new CafeContext());
             kernel.Bind<MenuService>().ToSelf();
+            //user control
+            kernel.Bind<IIdentityUnitOfWork>().To<IdentityUnitOfWork>().WithConstructorArgument("dbContext", new CafeContext());
+            kernel.Bind<IUserService>().To<UserService>();
         }        
     }
+
+    
 }
